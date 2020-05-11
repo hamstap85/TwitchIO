@@ -31,7 +31,6 @@ from typing import Union
 from twitchio.errors import HTTPException
 from twitchio.http import HTTPSession
 
-
 User = namedtuple('User', ('id', 'login', 'display_name', 'type', 'broadcaster_type', 'description',
                            'profile_image', 'offline_image', 'view_count'))
 Chatters = namedtuple('Chatters', ('count', 'all', 'broadcaster', 'vips', 'moderators', 'staff',
@@ -240,7 +239,7 @@ class Client:
         except IndexError:
             pass
 
-    async def get_followers(self, user_id: Union[int, str], *, count: bool=False):
+    async def get_followers(self, user_id: Union[int, str], *, count: bool = False):
         """|coro|
 
         Retrieves the list of users who are following a user.
@@ -267,7 +266,7 @@ class Client:
 
         return await self.http.get_followers(str(user_id), count=count)
 
-    async def get_following(self, user_id: Union[int, str], count: bool=False):
+    async def get_following(self, user_id: Union[int, str], count: bool = False):
         """|coro|
 
         Retrieves the list of users who this user is following.

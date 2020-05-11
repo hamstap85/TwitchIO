@@ -1,10 +1,11 @@
 import datetime
 from typing import *
 
+from twitchio.ext.commands.core import Command
 from .abcs import Messageable
 from .http import HTTPSession
 from .websocket import WebsocketConnection
-from twitchio.ext.commands.core import Command
+
 
 class Message:
     __slots__ = ('_author', '_channel', '_raw_data', 'content', 'clean_content', '_tags', '_timestamp')
@@ -76,6 +77,7 @@ class User:
 
     def is_mod(self) -> bool: ...
 
+
 class Context(Messageable):
     def __init__(self, message: Message, channel: Channel, user: User, **attrs):
         self.message: Message = message
@@ -97,6 +99,7 @@ class Context(Messageable):
     def _get_socket(self) -> WebsocketConnection: ...
 
     async def get_stream(self) -> dict: ...
+
 
 class NoticeSubscription:
 

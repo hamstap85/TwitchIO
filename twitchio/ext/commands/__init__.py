@@ -24,6 +24,6 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from .errors import *
-from .core import command, cog, AutoCog, Command, check  # Do an __all__ at some point.
 from .bot import Bot
+from .core import command, cog, AutoCog, Command, check  # Do an __all__ at some point.
+from .errors import *

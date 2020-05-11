@@ -26,7 +26,6 @@ DEALINGS IN THE SOFTWARE.
 
 __all__ = ('Message', 'Channel', 'User', 'Context', 'NoticeSubscription')
 
-
 import datetime
 import time
 from typing import *
@@ -36,7 +35,6 @@ from .errors import EchoMessageWarning
 
 
 class Message:
-
     __slots__ = ('_author', '_channel', '_raw_data', 'content', 'clean_content', '_tags', '_timestamp', 'echo')
 
     def __init__(self, **attrs):
@@ -90,7 +88,6 @@ class Message:
 
 
 class Channel(Messageable):
-
     __slots__ = ('_channel', '_ws', '_http', '_echo', '_users')
 
     def __init__(self, name, ws, http):
@@ -151,7 +148,6 @@ class Channel(Messageable):
 
 
 class User:
-
     __slots__ = ('_name', '_channel', '_tags', 'display_name', '_id', 'type',
                  '_colour', 'subscriber', 'turbo', '_badges', '_ws', '_mod')
 

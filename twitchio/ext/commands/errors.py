@@ -26,7 +26,6 @@ DEALINGS IN THE SOFTWARE.
 
 __all__ = ('CommandError', 'CommandNotFound', 'MissingRequiredArgument', 'BadArgument', 'CheckFailure',)
 
-
 from twitchio.errors import TwitchIOBException
 
 
@@ -52,6 +51,7 @@ class MissingRequiredArgument(CommandError):
     param: :class:`inspect.Parameter`
         The argument that is missing.
     """
+
     def __init__(self, param):
         self.param = param
         super().__init__(f'{param.name} is a required argument that is missing.')

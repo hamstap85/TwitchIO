@@ -200,7 +200,7 @@ class Command:
         return func
 
 
-def command(*, name: str=None, aliases: Union[list, tuple]=None, cls=None, no_global_checks=False):
+def command(*, name: str = None, aliases: Union[list, tuple] = None, cls=None, no_global_checks=False):
     """Decorator that turns a coroutine into a Command.
 
     Parameters
@@ -227,6 +227,7 @@ def command(*, name: str=None, aliases: Union[list, tuple]=None, cls=None, no_gl
         command = cls(name=fname, func=func, aliases=aliases, no_global_checks=no_global_checks)
 
         return command
+
     return decorator
 
 
@@ -238,6 +239,7 @@ def check(predicate):
     predicate : bool
         The predicate to check. This must return True, False or raise. A truth value means the check has passed.
     """
+
     # todo Better docstrings/examples
     def decorator(func):
         if isinstance(func, Command):
@@ -247,6 +249,7 @@ def check(predicate):
         else:
             func.__checks__.append(predicate)
         return func
+
     return decorator
 
 
@@ -254,7 +257,7 @@ class AutoCog:
     pass
 
 
-def cog(*, name: str=None, **attrs):
+def cog(*, name: str = None, **attrs):
     """A decorator that turns a class into a Cog.
 
     Parameters
@@ -264,6 +267,7 @@ def cog(*, name: str=None, **attrs):
     \*\*attrs:
         Extra attributes to set to the class, as kwargs.
     """
+
     def wrapper(klass):
         class Cog(AutoCog, klass):
 
@@ -290,4 +294,5 @@ def cog(*, name: str=None, **attrs):
                 bot.cogs[self.__name__] = self
 
         return Cog
+
     return wrapper

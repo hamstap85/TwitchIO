@@ -34,14 +34,14 @@ import traceback
 import uuid
 from typing import Union, List, Tuple
 
-from .core import Command, AutoCog
-from .errors import *
-from .stringparser import StringParser
 from twitchio.client import Client
 from twitchio.dataclasses import Context
 from twitchio.errors import ClientError
 from twitchio.webhook import TwitchWebhookServer
 from twitchio.websocket import WebsocketConnection
+from .core import Command, AutoCog
+from .errors import *
+from .stringparser import StringParser
 
 
 class Bot(Client):
@@ -84,10 +84,10 @@ class Bot(Client):
         A long random string, such as hex, is advised e.g `2t389hth892t3h898hweiogtieo`
     """
 
-    def __init__(self, irc_token: str, api_token: str=None, *, client_id: str=None, prefix: Union[list, tuple, str],
-                 nick: str, loop: asyncio.BaseEventLoop=None, initial_channels: Union[list, tuple]=None,
-                 webhook_server: bool=False, local_host: str=None, external_host: str=None, callback: str=None,
-                 port: int=None, **attrs):
+    def __init__(self, irc_token: str, api_token: str = None, *, client_id: str = None, prefix: Union[list, tuple, str],
+                 nick: str, loop: asyncio.BaseEventLoop = None, initial_channels: Union[list, tuple] = None,
+                 webhook_server: bool = False, local_host: str = None, external_host: str = None, callback: str = None,
+                 port: int = None, **attrs):
 
         self.loop = loop or asyncio.get_event_loop()
         super().__init__(loop=self.loop, client_id=client_id, **attrs)
@@ -105,7 +105,7 @@ class Bot(Client):
                                                        callback=callback,
                                                        port=port)
             loop = asyncio.new_event_loop()
-            thread = threading.Thread(target=self._webhook_server.run_server, args=(loop, ), daemon=True)
+            thread = threading.Thread(target=self._webhook_server.run_server, args=(loop,), daemon=True)
             thread.start()
 
         self.loop.create_task(self._prefix_setter(prefix))
@@ -340,7 +340,8 @@ class Bot(Client):
         elif isinstance(item, str):
             self.prefixes = [item]
         else:
-            raise ClientError('Invalid prefix provided. A list, tuple, str or callable returning either should be used.')
+            raise ClientError('Invalid prefix provided. '
+                              'A list, tuple, str or callable returning either should be used.')
 
     async def _get_prefixes(self, message):
         prefix = ret = self.prefixes
@@ -719,7 +720,7 @@ class Bot(Client):
 
         Parameters
         ------------
-        channel: :class:`.Channel`	
+        channel: :class:`.Channel`
             Channel object relevant to the USERNOTICE event.
         tags : dict
             A dictionary with the relevant information associated with the USERNOTICE.
@@ -833,7 +834,7 @@ class Bot(Client):
         """
         pass
 
-    def command(self, *, name: str=None, aliases: Union[list, tuple]=None, cls=Command):
+    def command(self, *, name: str = None, aliases: Union[list, tuple] = None, cls=Command):
         """Decorator which registers a command on the bot.
 
         Commands must be a coroutine.
@@ -865,6 +866,7 @@ class Bot(Client):
             self.add_command(command)
 
             return command
+
         return decorator
 
     def event(self, func):
@@ -913,7 +915,7 @@ class Bot(Client):
         self._checks.append(func)
         return func
 
-    def add_listener(self, func, name: str=None):
+    def add_listener(self, func, name: str = None):
         """Method which adds a coroutine as an extra listener.
 
         This can be used to add extra event listeners to the bot.
@@ -935,7 +937,7 @@ class Bot(Client):
         else:
             self.extra_listeners[name].append(func)
 
-    def listen(self, event: str=None):
+    def listen(self, event: str = None):
         """Decorator which adds a coroutine as a listener to an event.
 
         This can be used in place of :meth:`.event` or when more than one of the same event is required.
@@ -957,10 +959,12 @@ class Bot(Client):
             async def extra_message(message):
             print(message.content)
         """
+
         def wrapper(func):
             self.add_listener(func, event)
 
             return func
+
         return wrapper
 
     async def modify_webhook_subscription(self, *, callback=None, mode, topic, lease_seconds=0, secret=None):
